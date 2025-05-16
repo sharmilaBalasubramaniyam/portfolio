@@ -1550,7 +1550,7 @@
             </div>
             <div class="btn-box">
                 <a href="#contact" class="btn">Contact Me</a>
-                <a href="C:\Users\mohan\OneDrive\Desktop\PORTFOLIO\PORTFOLIO\SHARMILA B-CV.pdf" class="btn">Download CV</a>
+                <a href="SHARMILA B-CV.pdf" class="btn">Download CV</a>
             </div>
         </div>
     </section>
@@ -1560,9 +1560,7 @@
         <h2 class="heading">About <span>Me</span></h2>
         <div class="about-content">
             <div class="about-img">
-                <img src="C:\Users\mohan\OneDrive\Desktop\PORTFOLIO\PORTFOLIO\sharmi PIC.jpeg" alt="Sharmila">
-
-
+                <img src="sharmi PIC.jpeg" alt="Sharmila">
             </div>
             <div class="about-text">
                 <h3>Computer Science Student & Developer</h3>
@@ -1739,10 +1737,10 @@
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects</span></h2>
         <div class="projects-container">
-            <div class="project-card">
-                <div class="project-img">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Language Fusion System">
-                </div>
+        <div class="project-card">
+            <div class="project-img">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Language Fusion System">
+            </div>
                 <div class="project-content">
                     <h3>Language Fusion System</h3>
                     <p>A web application using generative AI and animations to enhance students' LSRW (Listening, Speaking, Reading, Writing) skills. Includes ranking system, learning materials, and tests with personalized AI guidance.</p>
@@ -2080,91 +2078,37 @@
 
         // Form submission
         const form = document.querySelector('.contact-form form');
-                form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Show success message with animation
-            const submitBtn = form.querySelector('.btn');
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            submitBtn.style.backgroundColor = '#4CAF50';
-            
-            // Reset form after 3 seconds
-            setTimeout(() => {
-                form.reset();
-                submitBtn.innerHTML = 'Send Message';
-                submitBtn.style.backgroundColor = 'var(--primary)';
-                
-                // Reset input labels
-                document.querySelectorAll('.input-box span').forEach(span => {
-                    span.style.transform = '';
-                    span.style.fontSize = '';
-                    span.style.color = '';
-                });
-            }, 3000);
-        });
-
-        // Hover effect for project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', function(e) {
-                const x = e.clientX - card.getBoundingClientRect().left;
-                const y = e.clientY - card.getBoundingClientRect().top;
-                
-                const centerX = card.offsetWidth / 2;
-                const centerY = card.offsetHeight / 2;
-                
-                const angleX = (y - centerY) / 20;
-                const angleY = (centerX - x) / 20;
-                
-                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
-                card.style.boxShadow = `${-angleY * 2}px ${angleX * 2}px 30px rgba(0, 0, 0, 0.2)`;
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)';
-                card.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.1)';
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    const submitBtn = form.querySelector('.btn');
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                    submitBtn.style.backgroundColor = '#4CAF50';
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = 'Send Message';
+                        submitBtn.style.backgroundColor = 'var(--primary)';
+                    }, 3000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was a problem sending your message. Please try again later.');
             });
         });
-
-        // Text animation for hero section
-        const heroText = document.querySelector('.hero-content h1');
-        const letters = heroText.textContent.split('');
-        heroText.textContent = '';
-        
-        letters.forEach((letter, i) => {
-            const span = document.createElement('span');
-            span.textContent = letter;
-            span.style.setProperty('--i', i + 1);
-            heroText.appendChild(span);
-        });
-
-        // Background parallax effect
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            hero.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
-        });
-
-        // Pulse animation for call-to-action buttons
-        setInterval(() => {
-            const btns = document.querySelectorAll('.btn');
-            btns.forEach(btn => {
-                btn.classList.toggle('pulse');
-            });
-        }, 2000);
-
-        // Add pulse animation class
-        const style = document.createElement('style');
-        style.textContent = `
-            .pulse {
-                animation: pulse 2s infinite;
-            }
-            @keyframes pulse {
-                0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7); }
-                70% { box-shadow: 0 0 0 15px rgba(108, 99, 255, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
